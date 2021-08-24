@@ -1,2 +1,3 @@
 rootProject.name = "coconut-mvvm"
 include ':app'
+include ':coconut-mvvm-code'
