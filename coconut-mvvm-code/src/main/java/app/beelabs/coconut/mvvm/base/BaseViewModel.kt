@@ -1,4 +1,6 @@
 package app.beelabs.coconut.mvvm.base
 
-class BaseViewModel {
+import androidx.lifecycle.ViewModel
+
+class BaseViewModel : ViewModel() {
 }

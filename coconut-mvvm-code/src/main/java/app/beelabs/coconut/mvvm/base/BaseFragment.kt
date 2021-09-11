@@ -1,4 +1,6 @@
 package app.beelabs.coconut.mvvm.base
 
-class BaseFragment {
+import androidx.fragment.app.Fragment
+
+class BaseFragment : Fragment(){
 }

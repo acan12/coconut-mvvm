@@ -1,4 +1,6 @@
 package app.beelabs.coconut.mvvm.base
 
-class BaseApp {
+import android.app.Application
+
+class BaseApp : Application(){
 }

@@ -1,4 +1,6 @@
 package app.beelabs.coconut.mvvm.base
 
-class BaseActivity {
+import android.app.Activity
+
+open class BaseActivity : Activity(){
 }
