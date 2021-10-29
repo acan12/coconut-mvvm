@@ -1,6 +1,9 @@
 package app.beelabs.coconut.mvvm.base
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class BaseApp : Application(){
+@HiltAndroidApp
+open class BaseApp : Application(){
+
 }
