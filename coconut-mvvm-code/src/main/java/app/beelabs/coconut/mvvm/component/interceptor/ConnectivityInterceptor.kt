@@ -1,4 +1,4 @@
-package app.beelabs.coconut.mvvm.base.interceptor
+package app.beelabs.coconut.mvvm.component.interceptor
 
 import app.beelabs.coconut.mvvm.base.exception.NoConnectivityException
 import app.beelabs.coconut.mvvm.base.service.WifiConnectionService

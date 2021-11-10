@@ -6,7 +6,6 @@ import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import androidx.appcompat.app.AppCompatActivity
 import app.beelabs.coconut.mvvm.base.interfaces.IView
 import app.beelabs.coconut.mvvm.base.response.ErrorResponse
-import dagger.hilt.android.AndroidEntryPoint
 
 
 open class BaseActivity : AppCompatActivity(), IView,

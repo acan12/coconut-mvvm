@@ -1,7 +1,7 @@
 package app.beelabs.coconut.mvvm.base
 
 import app.beelabs.coconut.mvvm.base.helper.UnsafeHttpClient
-import app.beelabs.coconut.mvvm.base.interceptor.ConnectivityInterceptor
+import app.beelabs.coconut.mvvm.component.interceptor.ConnectivityInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
