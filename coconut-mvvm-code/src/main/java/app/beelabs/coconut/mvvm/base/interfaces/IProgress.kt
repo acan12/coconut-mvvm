@@ -1,4 +1,4 @@
-package app.beelabs.coconut.mvvm.di
+package app.beelabs.coconut.mvvm.base.interfaces
 
 import android.content.Context
 

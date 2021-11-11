@@ -1,8 +1,8 @@
 package app.beelabs.coconut.mvvm.di.manager
 
 import app.beelabs.coconut.mvvm.base.BaseManager
-import app.beelabs.coconut.mvvm.base.IApi
-import app.beelabs.coconut.mvvm.base.IApiService
+import app.beelabs.coconut.mvvm.base.interfaces.IApi
+import app.beelabs.coconut.mvvm.base.interfaces.IApiService
 import okhttp3.Interceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -23,11 +23,13 @@ class ApiManager : BaseManager(), IApi {
             .addConverterFactory(JacksonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(
-                getHttpClient(allowUntrusted,
-                timeout,
-                enableLoggingHttp,
-                interceptors,
-                networkInterceptors)
+                getHttpClient(
+                    allowUntrusted,
+                    timeout,
+                    enableLoggingHttp,
+                    interceptors,
+                    networkInterceptors
+                )
             ).build().create(clazz)
     }
 }

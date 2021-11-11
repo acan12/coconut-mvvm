@@ -1,8 +1,8 @@
-package app.beelabs.coconut.mvvm.base
+package app.beelabs.coconut.mvvm.base.interfaces
 
 import okhttp3.Interceptor
 
-open interface IApi {
+interface IApi {
     fun initApiService(
         piDomain: String,
         allowUntrusted: Boolean,

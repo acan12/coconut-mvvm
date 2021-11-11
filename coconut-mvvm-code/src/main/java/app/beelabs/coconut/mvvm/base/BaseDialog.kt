@@ -9,7 +9,7 @@ import android.view.WindowManager
 import app.beelabs.coconut.mvvm.R
 
 
-class BaseDialog(context: Context, style: Int) : Dialog(context, style) {
+open class BaseDialog(context: Context, style: Int) : Dialog(context, style) {
     private val widthLayout = WindowManager.LayoutParams.MATCH_PARENT
     private val heightLayout = WindowManager.LayoutParams.MATCH_PARENT
 

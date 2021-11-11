@@ -1,6 +1,6 @@
 package app.beelabs.coconut.mvvm.base
 
-import app.beelabs.coconut.mvvm.base.helper.UnsafeHttpClient
+import app.beelabs.coconut.mvvm.base.helper.UnsafeHttpClientHelper
 import app.beelabs.coconut.mvvm.component.interceptor.ConnectivityInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -23,7 +23,7 @@ open class BaseManager {
         var httpClient = OkHttpClient.Builder()
 
         // allowUntrustedSSL: true , if activate Untrusted SSL
-        if (allowUntrustedSSL) httpClient = UnsafeHttpClient.getUnsafeOkHttpClient(httpClient)
+        if (allowUntrustedSSL) httpClient = UnsafeHttpClientHelper.getUnsafeOkHttpClient(httpClient)
         httpClient.connectTimeout(timeout, TimeUnit.SECONDS)
         httpClient.readTimeout(timeout, TimeUnit.SECONDS)
 

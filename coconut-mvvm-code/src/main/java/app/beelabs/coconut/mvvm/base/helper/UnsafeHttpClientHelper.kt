@@ -8,7 +8,7 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 import javax.security.cert.CertificateException
 
-class UnsafeHttpClient {
+class UnsafeHttpClientHelper {
     companion object {
         fun getUnsafeOkHttpClient(httpClient: OkHttpClient.Builder): OkHttpClient.Builder {
             try {
