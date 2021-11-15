@@ -1,8 +1,10 @@
 package app.beelabs.com.coconut_mvvm.sample.model.api
 
 import app.beelabs.coconut.mvvm.base.BaseApi
+import app.beelabs.coconut.mvvm.base.BaseConfig
+import app.beelabs.com.coconut_mvvm.sample.BuildConfig
 
-object Api : BaseApi() {
+class Api : BaseApi() {
 
     private fun initHeader(): Map<String, String> {
         var map = HashMap<String, String>()
@@ -15,4 +17,17 @@ object Api : BaseApi() {
         map.put("Content-Type", "application/json")
         return map
     }
+
+    fun getSourceNetwork(){
+        setupApiDomain(
+            IConfig.API_BASE_URL,
+            true,
+            ApiService::class.java,
+            BaseConfig.TIMEOUT_LONG_INSECOND,
+            BuildConfig.DEBUG,
+            arrayOf(),
+            arrayOf()
+        )
+    }
+
 }

@@ -4,11 +4,12 @@ import okhttp3.Interceptor
 
 interface IApi {
     fun initApiService(
-        piDomain: String,
+        apiDomain: String,
         allowUntrusted: Boolean,
-        clazz: Class<IApiService>,
+        clazz: Class<*>,
         timeout: Long,
         enableLoggingHttp: Boolean,
         interceptors: Array<Interceptor>,
-        networkInterceptors: Array<Interceptor>): Any
+        networkInterceptors: Array<Interceptor>
+    ): Any
 }
