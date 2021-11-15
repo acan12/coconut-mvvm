@@ -1,6 +1,6 @@
 package app.beelabs.coconut.mvvm.base
 
-class BaseApi {
+open class BaseApi {
     private lateinit var apiDomain: String
     private lateinit var baseApi: BaseApi
 

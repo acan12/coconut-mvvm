@@ -8,7 +8,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "app.beelabs.com.coconut_mvvm"
+        applicationId "app.beelabs.com.coconut_mvvm.sample"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

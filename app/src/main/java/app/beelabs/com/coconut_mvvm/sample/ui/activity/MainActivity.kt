@@ -1,4 +1,4 @@
-package app.beelabs.com.coconut_mvvm.ui.activity
+package app.beelabs.com.coconut_mvvm.sample.ui.activity
 
 import android.os.Bundle
 import app.beelabs.coconut.mvvm.base.BaseActivity
