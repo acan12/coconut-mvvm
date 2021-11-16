@@ -63,6 +63,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version" // Retrofit
     implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version" // Jackson as parser engine for retrofit
 
+    // RX [Optional]
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'   // RX
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0' // RX
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+
     // Dagger
 //    implementation "com.google.dagger:dagger:$dagger_version"  // Dagger 2
 //    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version" // Dagger 2

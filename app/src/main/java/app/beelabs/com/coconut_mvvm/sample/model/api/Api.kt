@@ -2,11 +2,12 @@ package app.beelabs.com.coconut_mvvm.sample.model.api
 
 import app.beelabs.coconut.mvvm.base.BaseApi
 import app.beelabs.coconut.mvvm.base.BaseConfig
+import app.beelabs.coconut.mvvm.base.interfaces.IApiService
 import app.beelabs.com.coconut_mvvm.sample.BuildConfig
 
 class Api : BaseApi() {
 
-    private fun initHeader(): Map<String, String> {
+    fun initHeader(): Map<String, String> {
         var map = HashMap<String, String>()
         map.put(
             "Token",
@@ -18,7 +19,7 @@ class Api : BaseApi() {
         return map
     }
 
-    fun getSourceNetwork(){
+    fun getSourceNetwork(): ApiService =
         setupApiDomain(
             IConfig.API_BASE_URL,
             true,
@@ -27,7 +28,7 @@ class Api : BaseApi() {
             BuildConfig.DEBUG,
             arrayOf(),
             arrayOf()
-        )
-    }
+        ) as ApiService
+
 
 }

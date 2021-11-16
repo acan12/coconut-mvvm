@@ -1,4 +1,15 @@
-//package app.beelabs.coconut.mvvm.base.interfaces
-//
-//interface IApiService {
-//}
+package app.beelabs.coconut.mvvm.base.interfaces
+
+import okhttp3.Interceptor
+
+interface IApiService {
+    fun initApiService(
+        apiDomain: String,
+        allowUntrusted: Boolean,
+        clazz: Class<*>,
+        timeout: Long,
+        enableLoggingHttp: Boolean,
+        interceptors: Array<Interceptor>,
+        networkInterceptors: Array<Interceptor>
+    ): Any
+}

@@ -1,14 +1,13 @@
 package app.beelabs.coconut.mvvm.base
 
-import app.beelabs.coconut.mvvm.base.interfaces.IApi
+import app.beelabs.coconut.mvvm.base.interfaces.IApiService
 import okhttp3.Interceptor
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 open class BaseApi {
 
     @Inject
-    lateinit var api: IApi
+    lateinit var apiService: IApiService
 
     protected fun setupApiDomain(
         apiDomain: String,
@@ -18,8 +17,8 @@ open class BaseApi {
         enableLogging: Boolean,
         interceptors: Array<Interceptor>,
         networkInterceptors: Array<Interceptor>
-    ): IApi {
-        return api.initApiService(
+    ): Any {
+        return apiService.initApiService(
             apiDomain,
             allowUntrusted,
             apiservice,
@@ -27,7 +26,7 @@ open class BaseApi {
             enableLogging,
             interceptors,
             networkInterceptors
-        ) as IApi
+        )
     }
 
 }
