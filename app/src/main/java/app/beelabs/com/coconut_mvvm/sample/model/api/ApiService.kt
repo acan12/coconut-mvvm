@@ -1,13 +1,17 @@
 package app.beelabs.com.coconut_mvvm.sample.model.api
 
 import app.beelabs.com.coconut_mvvm.sample.model.api.response.SourceResponse
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
 interface ApiService {
 
-    @GET("sources")
-    fun callApiRXSources(@Query("language") language: String?): Observable<SourceResponse?>?
+    @GET("provinces")
+    fun callApiRXSources(): Observable<SourceResponse?>?
+
+    @GET("provinces")
+    fun callApiRXSourcesLiveData(): Call<SourceResponse?>?
 }

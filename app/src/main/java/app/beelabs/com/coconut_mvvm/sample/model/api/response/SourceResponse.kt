@@ -6,5 +6,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class SourceResponse: BaseResponse() {
-    var sources : List<Source>? = null
+
 }

@@ -1,5 +1,7 @@
 package app.beelabs.com.coconut_mvvm.sample.di.module
 
+import app.beelabs.coconut.mvvm.base.interfaces.IApiService
+import app.beelabs.coconut.mvvm.di.manager.ApiServiceManager
 import app.beelabs.com.coconut_mvvm.sample.model.api.Api
 import dagger.Module
 import dagger.Provides
@@ -13,5 +15,9 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideApi(): Api = Api()
+    fun provideApi(): Api = Api(provideApiService())
+
+    @Provides
+    @Singleton
+    fun provideApiService(): IApiService = ApiServiceManager()
 }

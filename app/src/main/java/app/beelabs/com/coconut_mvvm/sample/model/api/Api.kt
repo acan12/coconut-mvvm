@@ -4,8 +4,10 @@ import app.beelabs.coconut.mvvm.base.BaseApi
 import app.beelabs.coconut.mvvm.base.BaseConfig
 import app.beelabs.coconut.mvvm.base.interfaces.IApiService
 import app.beelabs.com.coconut_mvvm.sample.BuildConfig
+import okhttp3.Interceptor
+import javax.inject.Inject
 
-class Api : BaseApi() {
+class Api @Inject constructor(private var apiService: IApiService) : BaseApi() {
 
     fun initHeader(): Map<String, String> {
         var map = HashMap<String, String>()
@@ -17,6 +19,26 @@ class Api : BaseApi() {
         map.put("Cache-Control", "no-store")
         map.put("Content-Type", "application/json")
         return map
+    }
+
+    protected fun setupApiDomain(
+        apiDomain: String,
+        allowUntrusted: Boolean,
+        apiservice: Class<*>,
+        timeoutLong: Long,
+        enableLogging: Boolean,
+        interceptors: Array<Interceptor>,
+        networkInterceptors: Array<Interceptor>
+    ): Any {
+        return apiService.initApiService(
+            apiDomain,
+            allowUntrusted,
+            apiservice,
+            timeoutLong,
+            enableLogging,
+            interceptors,
+            networkInterceptors
+        )
     }
 
     fun getSourceNetwork(): ApiService =

@@ -1,10 +1,11 @@
 package app.beelabs.coconut.mvvm.di.manager
 
 import android.content.Context
-import app.beelabs.coconut.mvvm.component.dialog.ProgressDialogComponent
+import app.beelabs.coconut.mvvm.base.BaseManager
 import app.beelabs.coconut.mvvm.base.interfaces.IProgress
+import app.beelabs.coconut.mvvm.component.dialog.ProgressDialogComponent
 
-class ProgressManager : IProgress {
+class ProgressManager : BaseManager(), IProgress {
 
     override fun showProgressDialog(
         context: Context?,
