@@ -34,6 +34,6 @@ class MainViewModel @Inject constructor(
     }
 
     fun getSourceLiveData(){
-        repository.getSourceLiveData()
+        repository.getSourceCallback()
     }
 }

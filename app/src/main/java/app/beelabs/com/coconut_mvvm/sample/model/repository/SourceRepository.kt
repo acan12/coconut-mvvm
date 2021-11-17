@@ -21,7 +21,7 @@ class SourceRepository @Inject constructor(
         api.getSourceNetwork().callApiRXSources(api.initHeader())?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
 
-    fun getSourceLiveData() {
+    fun getSourceCallback() {
         api.getSourceNetwork()
             .callApiRXSourcesCallback()
             ?.enqueue(object : Callback<SourceResponse?> {
