@@ -18,13 +18,12 @@ class SourceRepository @Inject constructor(
 ) : BaseRepository() {
 
     fun getSourceDataRemote(): Observable<SourceResponse?>? =
-        api.getSourceNetwork().callApiRXSources()?.subscribeOn(Schedulers.io())
+        api.getSourceNetwork().callApiRXSources(api.initHeader())?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
 
     fun getSourceLiveData() {
-
         api.getSourceNetwork()
-            .callApiRXSourcesLiveData()
+            .callApiRXSourcesCallback()
             ?.enqueue(object : Callback<SourceResponse?> {
                 override fun onResponse(
                     call: Call<SourceResponse?>,
