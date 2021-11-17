@@ -6,6 +6,7 @@ import app.beelabs.coconut.mvvm.base.interfaces.IView
 import app.beelabs.coconut.mvvm.support.rx.RxObserver
 import app.beelabs.com.coconut_mvvm.sample.model.api.response.SourceResponse
 import app.beelabs.com.coconut_mvvm.sample.model.repository.SourceRepository
+import app.beelabs.com.coconut_mvvm.sample.ui.interfaces.IMainView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,7 +20,10 @@ class MainViewModel @Inject constructor(
             ?.subscribe(object : RxObserver<SourceResponse>(iview){
                  override fun onNext(o: Any) {
                     super.onNext(o)
-                    Toast.makeText(iview.currentActivity, "OnNext", Toast.LENGTH_SHORT).show()
+                    val data = o as SourceResponse
+                     when(iview){
+                         is IMainView -> iview.handleSourceResponseData(data)
+                     }
                 }
 
                 override fun onError(e: Throwable) {
