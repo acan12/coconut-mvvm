@@ -18,10 +18,8 @@ import kotlinx.coroutines.flow.flowOn
 
 import javax.inject.Inject
 
-@ActivityRetainedScoped
 class SourceRepository @Inject constructor(
-    private val api: Api,
-    private val remoteDataSource: RemoteDataSource
+    private val api: Api
 ) : BaseRepository() {
 
     fun getSourceDataRemote(): Observable<SourceResponse?>? =
@@ -46,11 +44,7 @@ class SourceRepository @Inject constructor(
 //            })
 //    }
 
-    suspend fun getSourceCoroutine(): Flow<NetworkResult<SourceResponse>> {
-//        return remoteDataSource.getSource()
-        return flow {
-            emit(safeApiCall { remoteDataSource.getSource() })
-        }.flowOn(Dispatchers.IO)
-    }
+    suspend fun getSourceCaroutine() = api.getSourceNetwork().callApiRXSourcesCallback()
+
 
 }

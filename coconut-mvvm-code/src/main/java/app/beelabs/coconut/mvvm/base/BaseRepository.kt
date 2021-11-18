@@ -14,26 +14,21 @@ open class BaseRepository {
                     return NetworkResult.Success(body)
                 }
             }
-
-            val errorResponse =
-                ObjectMapper().readValue(response.errorBody().toString(), BaseResponse::class.java)
-            return NetworkResult.Error(errorResponse)
-//            return error("${response.code()} ${response.message()}")
+            return error("${response.code()} ${response.message()}")
         } catch (e: Exception) {
-            return NetworkResult.Error(null)
-//            return error(e.message ?: e.toString())
+            return error(e.message ?: e.toString())
         }
     }
-//    private fun <T> error(errorMessage: String): NetworkResult<T> =
-//        NetworkResult.Error("Api call failed $errorMessage")
+    private fun <T> error(errorMessage: String): NetworkResult<T> =
+        NetworkResult.Error("Api call failed $errorMessage")
 
 }
 
 sealed class NetworkResult<T>(
     val data: T? = null,
-    val error: BaseResponse? = null
+    val message: String? = null
 ) {
     class Success<T>(data: T) : NetworkResult<T>(data)
-    class Error<T>(error: BaseResponse?) : NetworkResult<T>(null, error)
+    class Error<T>(message: String, data: T? = null) : NetworkResult<T>(data, message)
     class Loading<T> : NetworkResult<T>()
 }

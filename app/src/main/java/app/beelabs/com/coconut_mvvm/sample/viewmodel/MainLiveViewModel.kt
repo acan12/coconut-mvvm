@@ -9,7 +9,6 @@ import app.beelabs.com.coconut_mvvm.sample.model.api.response.SourceResponse
 import app.beelabs.com.coconut_mvvm.sample.model.repository.SourceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,16 +17,13 @@ class MainLiveViewModel @Inject constructor(
     private val repository: SourceRepository
 ) : BaseViewModel() {
 
-     val _sources: MutableLiveData<NetworkResult<SourceResponse>> = MutableLiveData()
+    private val _sources: MutableLiveData<SourceResponse> = MutableLiveData()
+    val sources: LiveData<SourceResponse> = _sources
 
-
-    val sources: LiveData<NetworkResult<SourceResponse>> = _sources
-
-    @InternalCoroutinesApi
     fun getSourceLiveData() =
         viewModelScope.launch {
-            repository.getSourceCoroutine().collect {
-
+            repository.getSourceCaroutine().let { response ->
+                _sources.postValue(response.body())
             }
         }
 
