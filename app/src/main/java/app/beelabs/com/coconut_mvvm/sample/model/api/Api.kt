@@ -51,6 +51,4 @@ class Api @Inject constructor(private var apiService: IApiService) : BaseApi() {
             arrayOf(),
             arrayOf()
         ) as ApiService
-
-
 }
