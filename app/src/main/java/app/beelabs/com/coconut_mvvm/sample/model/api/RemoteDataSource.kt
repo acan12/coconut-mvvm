@@ -7,5 +7,5 @@ class RemoteDataSource @Inject constructor(private val api: Api) {
         api.getNetwork().callApiRXSources(api.initHeader())
 
     suspend fun getSourceByCallback() =
-        api.getNetwork().callApiRXSourcesCallback(api.initHeader())
+        api.getNetwork().callApiSourcesCallback()
 }
