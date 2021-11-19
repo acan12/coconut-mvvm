@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("provinces")
+    @GET("provinces/")
     fun callApiRXSources(@HeaderMap header: Map<String, String>): Observable<SourceResponse?>?
 
     @GET("provinces/")

@@ -25,13 +25,21 @@ class MainActivity : BaseActivity(), IMainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // RX Observer
+        viewModelRx.getSource(this)
+
+        // coroutine livedata retrofit
+//        doCoroutine()
+    }
+
+    fun doCoroutine(){
         viewModelLive.getSourceLiveData()
         viewModelLive.sources.observe(this, { resource ->
             when (resource) {
                 is Resource.Success -> {
                     val source = resource.value
                     binding.apply {
-                        demoTitle.text = source.locationData[4].name
+                        demoTitle.text = "LiveData: \n${source.locationData[4].name}".also { binding.demoTitle.text = it }
                     }
                 }
                 is Resource.Error -> {
@@ -49,7 +57,7 @@ class MainActivity : BaseActivity(), IMainView {
     }
 
     override fun handleSourceResponseData(data: SourceResponse) {
-        binding.demoTitle.text = data.locationData[4].name
+        "Rx: \n${data.locationData[3].name}".also { binding.demoTitle.text = it }
         Toast.makeText(this, "OnNext -> ${data.locationData[3].name}", Toast.LENGTH_SHORT).show()
     }
 }
