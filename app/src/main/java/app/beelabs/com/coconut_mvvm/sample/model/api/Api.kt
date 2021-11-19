@@ -41,7 +41,7 @@ class Api @Inject constructor(private var apiService: IApiService) : BaseApi() {
         )
     }
 
-    fun getSourceNetwork(): ApiService =
+    fun getNetwork(): ApiService =
         setupApiDomain(
             IConfig.API_BASE_URL,
             true,

@@ -16,7 +16,7 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     fun getSource(iview: IView) {
-        repository.getSourceDataRemote()
+        repository.getSourceDataRemoteRX()
             ?.subscribe(object : RxObserver<SourceResponse>(iview){
                  override fun onNext(o: Any) {
                     super.onNext(o)

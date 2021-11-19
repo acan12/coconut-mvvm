@@ -1,29 +1,24 @@
 package app.beelabs.com.coconut_mvvm.sample.model.repository
 
-import androidx.lifecycle.asLiveData
 import app.beelabs.coconut.mvvm.base.BaseRepository
-import app.beelabs.coconut.mvvm.base.BaseResponse
-import app.beelabs.coconut.mvvm.base.NetworkResult
+import app.beelabs.coconut.mvvm.base.Resource
 import app.beelabs.com.coconut_mvvm.sample.model.api.Api
 import app.beelabs.com.coconut_mvvm.sample.model.api.RemoteDataSource
 import app.beelabs.com.coconut_mvvm.sample.model.api.response.SourceResponse
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-
+import kotlinx.coroutines.flow.FlowCollector
 import javax.inject.Inject
 
 class SourceRepository @Inject constructor(
-    private val api: Api
+    private val remoteData: RemoteDataSource
 ) : BaseRepository() {
 
-    fun getSourceDataRemote(): Observable<SourceResponse?>? =
-        api.getSourceNetwork().callApiRXSources(api.initHeader())?.subscribeOn(Schedulers.io())
+    fun getSourceDataRemoteRX(): Observable<SourceResponse?>? =
+        remoteData.getSourceByRX()?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
 
 //    fun getSourceCallback() {
@@ -44,7 +39,9 @@ class SourceRepository @Inject constructor(
 //            })
 //    }
 
-    suspend fun getSourceCaroutine() = api.getSourceNetwork().callApiRXSourcesCallback()
+    suspend fun getSourceCaroutine() = safeApiCall { remoteData.getSourceByCallback() }
+
+
 
 
 }

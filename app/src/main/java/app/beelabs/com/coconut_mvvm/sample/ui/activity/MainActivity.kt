@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import app.beelabs.coconut.mvvm.base.BaseActivity
-import app.beelabs.com.coconut_mvvm.sample.R
+import app.beelabs.coconut.mvvm.base.Resource
 import app.beelabs.com.coconut_mvvm.sample.databinding.ActivityMainBinding
 import app.beelabs.com.coconut_mvvm.sample.model.api.response.SourceResponse
 import app.beelabs.com.coconut_mvvm.sample.ui.interfaces.IMainView
@@ -25,12 +25,26 @@ class MainActivity : BaseActivity(), IMainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        viewModelRx.getSource(this)  --- use RxJava
         viewModelLive.getSourceLiveData()
-        viewModelLive.sources.observe(this, { source ->
-            binding.apply {
-                demoTitle.text = source.locationData[1].name
+        viewModelLive.sources.observe(this, { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    val source = resource.value
+                    binding.apply {
+                        demoTitle.text = source.locationData[4].name
+                    }
+                }
+                is Resource.Error -> {
+                    binding.demoTitle.text = resource.errorBody.toString()
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error ${resource.errorBody.toString()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                is Resource.Loading -> Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
             }
+
         })
     }
 
