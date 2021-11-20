@@ -9,6 +9,6 @@ class App : BaseApp() {
 
     override fun onCreate() {
         super.onCreate()
-        WifiConnectionService().initializeConnection(applicationContext);
+        WifiConnectionService().initializeConnection(applicationContext)
     }
 }
