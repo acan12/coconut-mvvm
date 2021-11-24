@@ -10,6 +10,7 @@ android {
 
     defaultConfig {
         applicationId "app.beelabs.com.coconut_mvvm.sample"
+        buildToolsVersion '30.0.3'
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
@@ -44,7 +45,6 @@ android {
 
 dependencies {
 
-    implementation 'androidx.room:room-ktx:2.3.0'
     def lifecycle_version = '2.2.0'
     def retrofit_version = '2.9.0'
     def hilt_version = '2.38.1'
@@ -67,7 +67,14 @@ dependencies {
 
     // Database  (Optional)
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+//    kapt 'androidx.room:room-compiler:2.0.0'
+//    implementation 'android.arch.persistence.room:runtime:2.0.0'
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt 'android.arch.persistence.room:compiler:2.0.0'
+
+//    implementation "android.arch.persistence.room:runtime:2.0.0"
+//    kapt "android.arch.persistence.room:compiler:2.0.0"
+
 
     // Lifecycle Extensions
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -112,7 +119,3 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
-
-//kapt {
-//    correctErrorTypes true
-//}

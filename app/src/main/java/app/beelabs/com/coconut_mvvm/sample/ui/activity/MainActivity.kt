@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import app.beelabs.coconut.mvvm.base.BaseActivity
 import app.beelabs.coconut.mvvm.base.Resource
 import app.beelabs.com.coconut_mvvm.sample.databinding.ActivityMainBinding
-import app.beelabs.com.coconut_mvvm.sample.model.api.response.SourceResponse
+import app.beelabs.com.coconut_mvvm.sample.model.api.response.LocationResponse
 import app.beelabs.com.coconut_mvvm.sample.ui.interfaces.IMainView
 import app.beelabs.com.coconut_mvvm.sample.viewmodel.MainLiveViewModel
 import app.beelabs.com.coconut_mvvm.sample.viewmodel.MainViewModel
@@ -26,15 +26,23 @@ class MainActivity : BaseActivity(), IMainView {
         setContentView(binding.root)
 
         // RX Observer
-        viewModelRx.getSource(this)
+//        viewModelRx.getSource(this)
 
         // coroutine livedata retrofit
 //        doCoroutine()
+        doLocalData()
+    }
+
+    fun doLocalData() {
+        viewModelLive.getLocalLocation(application)
+        viewModelLive.localLocation.observe(this, { result ->
+
+        })
     }
 
     fun doCoroutine(){
-        viewModelLive.getSourceLiveData()
-        viewModelLive.sources.observe(this, { resource ->
+        viewModelLive.getLocationLiveData()
+        viewModelLive.location.observe(this, { resource ->
             when (resource) {
                 is Resource.Success -> {
                     val source = resource.value
@@ -56,7 +64,7 @@ class MainActivity : BaseActivity(), IMainView {
         })
     }
 
-    override fun handleSourceResponseData(data: SourceResponse) {
+    override fun handleSourceResponseData(data: LocationResponse) {
         "Rx: \n${data.locationData[3].name}".also { binding.demoTitle.text = it }
         Toast.makeText(this, "OnNext -> ${data.locationData[3].name}", Toast.LENGTH_SHORT).show()
     }

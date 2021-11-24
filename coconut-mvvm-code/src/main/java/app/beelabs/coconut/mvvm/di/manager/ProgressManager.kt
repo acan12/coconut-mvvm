@@ -12,6 +12,6 @@ class ProgressManager : BaseManager(), IProgress {
         message: String?,
         isCanceledOnTouch: Boolean,
     ) {
-        ProgressDialogComponent
+        ProgressDialogComponent()
     }
 }

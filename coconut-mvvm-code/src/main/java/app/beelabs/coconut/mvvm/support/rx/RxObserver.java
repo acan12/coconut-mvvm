@@ -1,14 +1,10 @@
 package app.beelabs.coconut.mvvm.support.rx;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import app.beelabs.coconut.mvvm.base.BaseDialog;
 import app.beelabs.coconut.mvvm.base.BaseResponse;
 import app.beelabs.coconut.mvvm.base.interfaces.IView;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import okhttp3.ResponseBody;
-import retrofit2.HttpException;
 
 public class RxObserver<P extends BaseResponse> implements Observer {
     private IView iv;

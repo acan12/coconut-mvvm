@@ -1,23 +1,27 @@
 package app.beelabs.com.coconut_mvvm.sample.model.repository
 
+import android.app.Application
+import android.content.Context
 import app.beelabs.coconut.mvvm.base.BaseRepository
-import app.beelabs.coconut.mvvm.base.Resource
-import app.beelabs.com.coconut_mvvm.sample.model.api.Api
 import app.beelabs.com.coconut_mvvm.sample.model.api.RemoteDataSource
-import app.beelabs.com.coconut_mvvm.sample.model.api.response.SourceResponse
+import app.beelabs.com.coconut_mvvm.sample.model.api.response.LocationResponse
+import app.beelabs.com.coconut_mvvm.sample.model.dao.MvvmDatabase
+import app.beelabs.com.coconut_mvvm.sample.model.pojo.LocationEntity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+//import okhttp3.Dispatcher
 import javax.inject.Inject
 
-class SourceRepository @Inject constructor(
+class LocationRepository @Inject constructor(
     private val remoteData: RemoteDataSource
 ) : BaseRepository() {
 
-    fun getSourceDataRemoteRX(): Observable<SourceResponse?>? =
+    fun getSourceDataRemoteRX(): Observable<LocationResponse?>? =
         remoteData.getSourceByRX()?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
 
@@ -39,5 +43,17 @@ class SourceRepository @Inject constructor(
 //            })
 //    }
 
-    suspend fun getSourceCaroutine() = safeApiCall { remoteData.getSourceByCallback() }
+    suspend fun getLocationCaroutine() = safeApiCall { remoteData.getSourceByCallback() }
+
+
+    // Database
+    fun getLocalLocation(application: Application): Flow<List<LocationEntity>> =
+        flow {
+            emit(MvvmDatabase.getDatabase(application).locationDao().getLocations())
+        }.flowOn(IO)
+
+
+    suspend fun insertLocalLocation(location: LocationEntity, context: Context){
+        MvvmDatabase.getDatabase(context).locationDao().insertLocation(location)
+    }
 }
