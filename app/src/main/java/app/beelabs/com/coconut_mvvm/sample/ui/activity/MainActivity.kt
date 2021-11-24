@@ -1,6 +1,7 @@
 package app.beelabs.com.coconut_mvvm.sample.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import app.beelabs.coconut.mvvm.base.BaseActivity
@@ -36,7 +37,7 @@ class MainActivity : BaseActivity(), IMainView {
     fun doLocalData() {
         viewModelLive.getLocalLocation(application)
         viewModelLive.localLocation.observe(this, { result ->
-
+            Log.d("", "")
         })
     }
 

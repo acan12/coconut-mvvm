@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import app.beelabs.com.coconut_mvvm.sample.model.api.IConfig
 import app.beelabs.com.coconut_mvvm.sample.model.pojo.LocationEntity
 
 @Database(entities = [LocationEntity::class], version = 1, exportSchema = false)
@@ -19,7 +20,7 @@ abstract class MvvmDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MvvmDatabase::class.java,
-                    "mvvm_db"
+                    IConfig.APP_DATABASE_NAME
                 )
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
