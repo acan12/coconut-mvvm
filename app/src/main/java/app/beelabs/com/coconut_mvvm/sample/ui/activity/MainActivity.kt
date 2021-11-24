@@ -27,7 +27,7 @@ class MainActivity : BaseActivity(), IMainView {
         setContentView(binding.root)
 
         // RX Observer
-//        viewModelRx.getSource(this)
+        viewModelRx.getSource(this)
 
         // coroutine livedata retrofit
 //        doCoroutine()
