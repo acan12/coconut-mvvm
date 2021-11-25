@@ -4,7 +4,7 @@ package app.beelabs.com.coconut_mvvm.sample.model.repository
 import android.app.Application
 import android.content.Context
 import app.beelabs.coconut.mvvm.base.BaseRepository
-import app.beelabs.com.coconut_mvvm.sample.model.api.RemoteDataSource
+import app.beelabs.com.coconut_mvvm.sample.model.api.remote.SourceRemoteDataSource
 import app.beelabs.com.coconut_mvvm.sample.model.api.response.LocationResponse
 import app.beelabs.com.coconut_mvvm.sample.model.dao.LocationDao
 import app.beelabs.com.coconut_mvvm.sample.model.pojo.LocationEntity
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class LocationRepository @Inject constructor(
-    private val remoteData: RemoteDataSource,
+    private val remoteData: SourceRemoteDataSource,
     private val locationDao: LocationDao
 ) : BaseRepository() {
 
