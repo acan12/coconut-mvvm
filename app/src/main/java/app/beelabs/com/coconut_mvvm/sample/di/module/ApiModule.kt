@@ -3,7 +3,7 @@ package app.beelabs.com.coconut_mvvm.sample.di.module
 import app.beelabs.coconut.mvvm.base.interfaces.IApiService
 import app.beelabs.coconut.mvvm.di.manager.ApiServiceManager
 import app.beelabs.com.coconut_mvvm.sample.model.api.Api
-import app.beelabs.com.coconut_mvvm.sample.model.api.RemoteDataSource
+import app.beelabs.com.coconut_mvvm.sample.model.api.remote.SourceRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideRemoteData(): RemoteDataSource = RemoteDataSource(provideApi())
+    fun provideRemoteData(): SourceRemoteDataSource = SourceRemoteDataSource(provideApi())
 
     @Provides
     @Singleton

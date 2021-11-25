@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class SourceResponse() : BaseResponse() {
+class LocationResponse() : BaseResponse() {
 
     @JsonProperty("data")
     var locationData: List<LocationData> = listOf()

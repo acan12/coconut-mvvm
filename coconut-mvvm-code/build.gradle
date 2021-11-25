@@ -40,6 +40,7 @@ android {
 dependencies {
     ext {
         hilt_version = "2.38.1"
+//        room_version = "2.3.0"
     }
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -51,6 +52,10 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // Database
+//    implementation "androidx.room:room-runtime:$room_version"
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // define a BOM and its version
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))

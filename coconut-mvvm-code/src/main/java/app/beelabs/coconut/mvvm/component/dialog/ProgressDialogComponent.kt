@@ -5,7 +5,7 @@ import android.content.Context
 import app.beelabs.coconut.mvvm.base.BaseActivity
 import app.beelabs.coconut.mvvm.base.BaseConfig
 
-object ProgressDialogComponent {
+class ProgressDialogComponent {
 
     private var dialog: ProgressDialog? = null
 

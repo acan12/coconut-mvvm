@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">base.android.app</string>
+
+    <string name="coconut_internet_fail_message">Pastikan koneksi atau kuota internet kamu aktif, lalu coba lagi.</string>
 </resources>

@@ -2,6 +2,17 @@
 <resources>
     <color name="coconut_background_dialog_color">#F2FFFFFF</color>
 
+    <color name="colorCoconut_background_dialog">#F2FFFFFF</color>
+    <color name="colorCoconut_text_dialog">#000</color>
+    <color name="colorCoconut_iconLoading_dialog">#4169E1</color>
+
+    <color name="color_black_transparent80">#CC000000</color>
+    <color name="color_white">#fff</color>
+    <color name="color_green">#66b266</color>
+    <color name="color_red">#e50000</color>
+    <color name="color_black">#434655</color>
+    <color name="color_blue">#354A79</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
