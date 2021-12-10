@@ -3,4 +3,8 @@
     <string name="app_name">base.android.app</string>
 
     <string name="coconut_internet_fail_message">Pastikan koneksi atau kuota internet kamu aktif, lalu coba lagi.</string>
+
+    <string name="progressDialog_title">Title</string>
+    <string name="loading">Loading</string>
+    <string name="cancel">Batal</string>
 </resources>

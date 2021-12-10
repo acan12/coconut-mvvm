@@ -1,7 +1,7 @@
 package app.beelabs.coconut.mvvm.base
 
 object BaseConfig {
-    const val DEFAULT_LOADING: String= "Loading"
+    const val DEFAULT_TEXT_LOADING: String= "Loading"
     var TIMEOUT_SHORT_INSECOND = 15
     var TIMEOUT_LONG_INSECOND = 120L
 

@@ -12,6 +12,7 @@ import app.beelabs.com.coconut_mvvm.sample.ui.interfaces.IMainView
 import app.beelabs.com.coconut_mvvm.sample.viewmodel.MainLiveViewModel
 import app.beelabs.com.coconut_mvvm.sample.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import leakcanary.AppWatcher
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), IMainView {
@@ -32,6 +33,15 @@ class MainActivity : BaseActivity(), IMainView {
         // coroutine livedata retrofit
 //        doCoroutine()
         doLocalData()
+
+        binding.btnRx.setOnClickListener {
+            viewModelRx.getSource(this)
+        }
+        binding.btnCoroutine.setOnClickListener {
+            doCoroutine()
+        }
+
+        AppWatcher.objectWatcher.watch(this, "View was detached")
     }
 
     fun doLocalData() {

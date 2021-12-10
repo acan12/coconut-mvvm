@@ -17,4 +17,25 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_rx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Rx"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btn_coroutine"
+        app:layout_constraintTop_toBottomOf="@id/demo_title" />
+
+    <Button
+        android:id="@+id/btn_coroutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Coroutine"
+        app:layout_constraintLeft_toRightOf="@id/btn_rx"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/demo_title" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

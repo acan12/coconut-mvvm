@@ -13,7 +13,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     private IView iv;
     private String messageLoading;
     private long timeMilis;
-    private int dialogType;
+    private int dialogType = DialogTypeEnum.DEFAULT;
     private static BaseDialog dialogNoconnection;
 
     public interface DialogTypeEnum {
@@ -44,12 +44,12 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onSubscribe(Disposable d) {
-        (new ProgressDialogComponent()).dismissProgressDialog(iv.getCurrentActivity());
+        ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
 //        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
         if (messageLoading != null) {
             switch (dialogType) {
                 case DialogTypeEnum.DEFAULT:
-                    new ProgressDialogComponent().showProgressDialog(iv.getCurrentActivity(), messageLoading, false);
+                    ProgressDialogComponent.Companion.showProgressDialog(iv.getCurrentActivity(), messageLoading, false);
                     break;
 
 //                case DialogTypeEnum.SPINKIT:
@@ -62,12 +62,12 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     @Override
     public void onNext(Object o) {
 //        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
-            (new ProgressDialogComponent()).dismissProgressDialog(iv.getCurrentActivity());
+            ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
     }
 
     @Override
     public void onError(Throwable e) {
-        (new ProgressDialogComponent()).dismissProgressDialog(iv.getCurrentActivity());
+        ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
 //        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
 //
         if (e instanceof NoConnectivityException) {

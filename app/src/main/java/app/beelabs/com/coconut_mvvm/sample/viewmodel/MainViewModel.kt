@@ -17,18 +17,22 @@ class MainViewModel @Inject constructor(
 
     fun getSource(iview: IView) {
         repository.getSourceDataRemoteRX()
-            ?.subscribe(object : RxObserver<LocationResponse>(iview){
-                 override fun onNext(o: Any) {
+            ?.subscribe(object : RxObserver<LocationResponse>(iview, "Memuat") {
+                override fun onNext(o: Any) {
                     super.onNext(o)
                     val data = o as LocationResponse
-                     when(iview){
-                         is IMainView -> iview.handleSourceResponseData(data)
-                     }
+                    when (iview) {
+                        is IMainView -> iview.handleSourceResponseData(data)
+                    }
                 }
 
                 override fun onError(e: Throwable) {
                     super.onError(e)
-                    Toast.makeText(iview.currentActivity, "OnError: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        iview.currentActivity,
+                        "OnError: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
