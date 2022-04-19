@@ -1,12 +1,10 @@
 package app.beelabs.coconut.mvvm.component.dialog
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Context
 import app.beelabs.coconut.mvvm.base.BaseActivity
 import app.beelabs.coconut.mvvm.base.BaseConfig
 import app.beelabs.coconut.mvvm.support.ui.CoconutProgressDialog
-import app.beelabs.coconut.mvvm.support.ui.CoconutProgressDialog.Companion.MODE_DETERMINATE
 import app.beelabs.coconut.mvvm.support.ui.CoconutProgressDialog.Companion.THEME_DARK
 import leakcanary.AppWatcher
 
@@ -39,5 +37,5 @@ open class ProgressDialogComponent {
                 dialog = null
             }
         }
-        }
+    }
 }

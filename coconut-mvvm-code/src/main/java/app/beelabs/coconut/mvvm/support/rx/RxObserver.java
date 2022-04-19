@@ -15,6 +15,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     private long timeMilis;
     private int dialogType = DialogTypeEnum.DEFAULT;
     private static BaseDialog dialogNoconnection;
+    private Disposable disposable = null;
 
     public interface DialogTypeEnum {
         int DEFAULT = 0;
@@ -44,6 +45,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onSubscribe(Disposable d) {
+        disposable = d;
         ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
 //        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
         if (messageLoading != null) {
@@ -61,15 +63,15 @@ public class RxObserver<P extends BaseResponse> implements Observer {
 
     @Override
     public void onNext(Object o) {
-//        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
+        if (messageLoading != null)
             ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
+        disposable.dispose();
     }
 
     @Override
     public void onError(Throwable e) {
-        ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
-//        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
-//
+        if (messageLoading != null)
+            ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
         if (e instanceof NoConnectivityException) {
             if (dialogNoconnection != null)
                 if (dialogNoconnection.isShowing()) dialogNoconnection.dismiss();
@@ -78,7 +80,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
             dialogNoconnection.show();
             return;
         }
-
+        disposable.dispose();
     }
 
     @Override

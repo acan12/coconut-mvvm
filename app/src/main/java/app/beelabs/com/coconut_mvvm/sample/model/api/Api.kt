@@ -7,7 +7,7 @@ import app.beelabs.com.coconut_mvvm.sample.BuildConfig
 import okhttp3.Interceptor
 import javax.inject.Inject
 
-class Api @Inject constructor(private var apiService: IApiService) : BaseApi() {
+open class Api @Inject constructor(private var apiService: IApiService) : BaseApi() {
 
     fun initHeader(): Map<String, String> {
         var map = HashMap<String, String>()
@@ -21,7 +21,7 @@ class Api @Inject constructor(private var apiService: IApiService) : BaseApi() {
         return map
     }
 
-    protected fun setupApiDomain(
+    private fun setupApiDomain(
         apiDomain: String,
         allowUntrusted: Boolean,
         apiservice: Class<*>,

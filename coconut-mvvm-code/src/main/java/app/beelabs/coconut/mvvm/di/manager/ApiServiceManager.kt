@@ -57,8 +57,9 @@ class ApiServiceManager : BaseManager(), IApiService {
             httpClient.addInterceptor(logging)
         }
 
-        // default interceptor
-//        httpClient.addInterceptor(ConnectivityInterceptor())
+        // check network state information interceptor
+//        val connectivityManager = con.getSystemService(Context.CONNECTIVITY_SERVICE)
+//        httpClient.addInterceptor(ConnectivityInterceptor(connectionManager))
 
         // Pre-Interceptor
         if (customInterceptors.isNotEmpty()) {
@@ -75,4 +76,6 @@ class ApiServiceManager : BaseManager(), IApiService {
         }
         return httpClient.build()
     }
+
+
 }
