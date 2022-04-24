@@ -1,8 +1,6 @@
 package app.beelabs.coconut.mvvm.di.module
 
-import app.beelabs.coconut.mvvm.base.interfaces.IProgress
 import app.beelabs.coconut.mvvm.component.dialog.ProgressDialogComponent
-import app.beelabs.coconut.mvvm.di.manager.ProgressManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

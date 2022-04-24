@@ -12,7 +12,4 @@ open class BaseManager {
     enum class Method {
         PUT, POST, UPDATE
     }
-
-
-
 }

@@ -2,7 +2,10 @@
 <resources>
     <string name="app_name">base.android.app</string>
 
-    <string name="coconut_internet_fail_message">Pastikan koneksi atau kuota internet kamu aktif, lalu coba lagi.</string>
+    <string name="coconut_internet_fail_message">Tidak Ada Koneksi Internet</string>
+    <string name="coconut_reply_action_label">Reply</string>
+    <string name="coconut_internet_fail_full_message">Pastikan koneksi atau kuota internet kamu aktif, lalu coba lagi.</string>
+    <string name="btn_reconnection_text">Coba Lagi</string>
 
     <string name="progressDialog_title">Title</string>
     <string name="loading">Loading</string>

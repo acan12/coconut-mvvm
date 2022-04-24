@@ -39,8 +39,6 @@ class MainLiveViewModel @Inject constructor(
                 _localLocation.postValue(values)
             }
         }
-
-
     }
 
     suspend fun insertLocalLocation(local: LocationEntity, context: Context) {

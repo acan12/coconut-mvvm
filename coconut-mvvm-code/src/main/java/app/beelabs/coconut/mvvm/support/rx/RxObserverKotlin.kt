@@ -2,7 +2,7 @@ package app.beelabs.coconut.mvvm.support.rx
 
 import app.beelabs.coconut.mvvm.base.BaseDialog
 import app.beelabs.coconut.mvvm.base.BaseResponse
-import app.beelabs.coconut.mvvm.base.exception.NoConnectivityException
+import app.beelabs.coconut.mvvm.base.exception.LostNetworkConnectionException
 import app.beelabs.coconut.mvvm.base.interfaces.IView
 import app.beelabs.coconut.mvvm.component.dialog.ProgressDialogComponent
 import app.beelabs.coconut.mvvm.support.dialog.CoconutAlertNoConnectionDialog
@@ -66,7 +66,7 @@ abstract class RxObserverKotlin<P : BaseResponse> : Observer<Any> {
         ProgressDialogComponent.dismissProgressDialog(iv.currentActivity)
         //        SpinKitLoadingDialogComponent.dismissProgressDialog(iv.getCurrentActivity(), timeMilis);
 //
-        if (e is NoConnectivityException) {
+        if (e is LostNetworkConnectionException) {
             if (dialogNoconnection != null){
                 if (dialogNoconnection!!.isShowing) dialogNoconnection!!.dismiss()
             }

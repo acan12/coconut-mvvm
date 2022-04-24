@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_above="@+id/coconut_message"
-        />
+        android:src="@drawable/no_wifi_image" />
 
     <TextView
         android:id="@+id/coconut_message"
@@ -34,6 +34,7 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
+        android:text="@string/coconut_internet_fail_full_message"
         android:textAlignment="center"
         android:textColor="@color/color_black"
         android:textSize="14sp" />
@@ -45,9 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/coconut_full_message"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="80dp"
+        android:background="@color/color_blue"
         android:drawablePadding="5dp"
         android:padding="20dp"
+        android:text="@string/btn_reconnection_text"
         android:textAllCaps="false"
         android:textColor="@color/color_white" />
 

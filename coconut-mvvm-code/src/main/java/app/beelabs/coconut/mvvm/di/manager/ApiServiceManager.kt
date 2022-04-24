@@ -3,6 +3,7 @@ package app.beelabs.coconut.mvvm.di.manager
 import app.beelabs.coconut.mvvm.base.BaseManager
 import app.beelabs.coconut.mvvm.base.helper.UnsafeHttpClientHelper
 import app.beelabs.coconut.mvvm.base.interfaces.IApiService
+import app.beelabs.coconut.mvvm.di.interceptor.WifiConnectionInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -57,24 +58,36 @@ class ApiServiceManager : BaseManager(), IApiService {
             httpClient.addInterceptor(logging)
         }
 
-        // check network state information interceptor
-//        val connectivityManager = con.getSystemService(Context.CONNECTIVITY_SERVICE)
-//        httpClient.addInterceptor(ConnectivityInterceptor(connectionManager))
-
         // Pre-Interceptor
-        if (customInterceptors.isNotEmpty()) {
-            for (interceptor: Interceptor in customInterceptors) {
-                httpClient.addInterceptor(interceptor)
-            }
-        }
+        executePreInterceptor(httpClient, customInterceptors)
 
         // Post-Network Interceptor
-        if (customNetworkInterceptors.isNotEmpty()) {
-            for (interceptor: Interceptor in customNetworkInterceptors) {
-                httpClient.addNetworkInterceptor(interceptor)
-            }
-        }
+        executePostInterceptor(httpClient, customNetworkInterceptors)
         return httpClient.build()
+    }
+
+    private fun executePreInterceptor(
+        httpClient: OkHttpClient.Builder,
+        customInterceptors: Array<Interceptor>
+    ) {
+        // add network state information interceptor as default
+        httpClient.addInterceptor(WifiConnectionInterceptor())
+
+        // add custom interceptor
+        if (customInterceptors.isNotEmpty())
+            for (interceptor: Interceptor in customInterceptors)
+                httpClient.addInterceptor(interceptor)
+    }
+
+    private fun executePostInterceptor(
+        httpClient: OkHttpClient.Builder,
+        customNetworkInterceptors: Array<Interceptor>
+    ) {
+        // add network interceptor
+        if (customNetworkInterceptors.isNotEmpty())
+            for (interceptor: Interceptor in customNetworkInterceptors)
+                httpClient.addNetworkInterceptor(interceptor)
+
     }
 
 
