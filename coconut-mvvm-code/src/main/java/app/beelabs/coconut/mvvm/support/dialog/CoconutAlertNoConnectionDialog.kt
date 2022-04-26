@@ -21,5 +21,4 @@ class CoconutAlertNoConnectionDialog(val iview: IView) :
             }
         }
     }
-
 }

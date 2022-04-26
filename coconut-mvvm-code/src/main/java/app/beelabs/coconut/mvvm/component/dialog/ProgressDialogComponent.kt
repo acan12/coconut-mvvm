@@ -14,7 +14,7 @@ open class ProgressDialogComponent {
         private var dialog: CoconutProgressDialog? = null
 
         @SuppressLint("NewApi")
-        fun showProgressDialog(context: Context, message: String, isCanceledOnTouch: Boolean) {
+        fun showProgressDialog(context: Context, message: String, isCanceledOnTouch: Boolean = false) {
             if (dialog == null) {
                 var text = if (message.isNotEmpty()) message else BaseConfig.DEFAULT_TEXT_LOADING
 

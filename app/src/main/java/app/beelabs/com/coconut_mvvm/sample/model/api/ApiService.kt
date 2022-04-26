@@ -12,5 +12,5 @@ interface ApiService {
     fun callApiRXSources(@HeaderMap header: Map<String, String>): Observable<LocationResponse?>?
 
     @GET("provinces/")
-    suspend fun callApiSourcesCallback(): LocationResponse
+    suspend fun callApiSourcesCallback(@HeaderMap header: Map<String, String>): LocationResponse
 }

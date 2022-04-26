@@ -15,11 +15,10 @@ import javax.inject.Singleton
 class DatabaseModule {
 
     @Provides
-    fun provideLocationDao(database: MvvmDatabase) : LocationDao = database.locationDao()
-
-    @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): MvvmDatabase =
         MvvmDatabase.getDatabase(context)
 
+    @Provides
+    fun provideLocationDao(database: MvvmDatabase) : LocationDao = database.locationDao()
 }

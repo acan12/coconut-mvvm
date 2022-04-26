@@ -2,7 +2,7 @@ package app.beelabs.coconut.mvvm.support.rx;
 
 import app.beelabs.coconut.mvvm.base.BaseDialog;
 import app.beelabs.coconut.mvvm.base.BaseResponse;
-import app.beelabs.coconut.mvvm.base.exception.LostNetworkConnectionException;
+import app.beelabs.coconut.mvvm.base.exception.NetworkLostConnectionException;
 import app.beelabs.coconut.mvvm.base.interfaces.IView;
 import app.beelabs.coconut.mvvm.component.dialog.ProgressDialogComponent;
 import app.beelabs.coconut.mvvm.support.dialog.CoconutAlertNoConnectionDialog;
@@ -72,10 +72,9 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     public void onError(Throwable e) {
         if (messageLoading != null)
             ProgressDialogComponent.Companion.dismissProgressDialog(iv.getCurrentActivity());
-        if (e instanceof LostNetworkConnectionException) {
+        if (e instanceof NetworkLostConnectionException) {
             if (dialogLostConnection != null)
-                if (dialogLostConnection.isShowing()) dialogLostConnection.dismiss();
-
+                dialogLostConnection.dismiss();
             dialogLostConnection = new CoconutAlertNoConnectionDialog(iv.getCurrentActivity());
             dialogLostConnection.show();
             return;

@@ -1,25 +1,13 @@
 package app.beelabs.coconut.mvvm.base
 
+import app.beelabs.coconut.mvvm.base.exception.NetworkLostConnectionException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Response
 import okhttp3.ResponseBody
 import retrofit2.HttpException
-import java.net.UnknownHostException
 
 open class BaseRepository {
-
-//    fun <T> resultFlow(
-//        localLoad: suspend () -> Resource<T>,
-//        networkCall: suspend () -> Resource<T>,
-//        saveCallResult: suspend (T) -> Unit
-//    ) = flow<Resource<T>> {
-//        emit(Resource.Loading<T>())
-//        val data = (localLoad() as Resource.Success<T>).value
-//        when {
-//            data != null -> checkDataType(data, networkCall, saveCallResult)
-//            else -> emit(callRemote(networkCall, saveCallResult))
-//        }
-//    }.flowOn(Dispatchers.IO)
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
         return withContext(Dispatchers.IO) {
@@ -30,14 +18,21 @@ open class BaseRepository {
             } catch (throwable: Throwable) {
                 when (throwable) {
                     is HttpException -> {
-                        Resource.Error(false, throwable.code(), throwable.response()?.errorBody())
+                        Resource.Error(
+                            throwable,
+                            throwable.code(),
+                            throwable.response()?.errorBody()
+                        )
+                    }
+                    is NetworkLostConnectionException -> {
+                        Resource.Error(
+                            throwable = throwable,
+                            503
+                        )
                     }
                     else -> {
-                        val isNetworkError = (throwable is UnknownHostException)
                         Resource.Error(
-                            isNetworkError = isNetworkError,
-                            null,
-                            null
+                            throwable = throwable
                         )
                     }
                 }
@@ -49,9 +44,9 @@ open class BaseRepository {
 sealed class Resource<out T> {
     data class Success<out T>(val value: T) : Resource<T>()
     data class Error(
-        val isNetworkError: Boolean,
-        val errorCode: Int?,
-        val errorBody: ResponseBody?
+        val throwable: Throwable,
+        val errorCode: Int? = null,
+        val errorBody: ResponseBody? = null
     ) : Resource<Nothing>()
 
     class Loading<out T>() : Resource<T>()
