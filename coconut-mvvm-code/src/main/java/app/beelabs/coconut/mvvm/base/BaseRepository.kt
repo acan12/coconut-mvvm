@@ -2,8 +2,8 @@ package app.beelabs.coconut.mvvm.base
 
 import app.beelabs.coconut.mvvm.base.exception.NetworkLostConnectionException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import okhttp3.Response
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 

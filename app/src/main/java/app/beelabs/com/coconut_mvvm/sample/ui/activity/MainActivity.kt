@@ -70,6 +70,7 @@ class MainActivity : BaseActivity(), IMainView {
     fun doCoroutine() {
         viewModelLive.getLocationLiveData(loadingProgress = {
             binding.loading.show()
+            binding.demoTitle.text = "Loading..."
         })
         viewModelLive.location.observe(this) { resource ->
             when (resource) {
@@ -104,9 +105,6 @@ class MainActivity : BaseActivity(), IMainView {
                             ).show()
                         }
                     }
-                }
-                is Resource.Loading -> {
-                    Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
         }
