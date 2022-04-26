@@ -11,7 +11,6 @@ import app.beelabs.com.coconut_mvvm.sample.model.api.response.LocationResponse
 import app.beelabs.com.coconut_mvvm.sample.model.pojo.LocationEntity
 import app.beelabs.com.coconut_mvvm.sample.model.repository.LocationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -34,9 +33,9 @@ class MainLiveViewModel @Inject constructor(
             _location.value = repository.getLocationCaroutine()
         }
 
-    fun getLocalLocation(application: Application){
+    fun getLocalLocation(){
         viewModelScope.launch {
-            val list = repository.getLocalLocation(application)
+            val list = repository.getLocalLocation()
             list.collect { values ->
                 _localLocation.postValue(values)
             }

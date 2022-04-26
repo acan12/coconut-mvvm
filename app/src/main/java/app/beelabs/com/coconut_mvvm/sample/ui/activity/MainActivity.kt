@@ -61,7 +61,7 @@ class MainActivity : BaseActivity(), IMainView {
     }
 
     fun doLocalData() {
-        viewModelLive.getLocalLocation(application)
+        viewModelLive.getLocalLocation()
         viewModelLive.localLocation.observe(this, { result ->
             Log.d("", "")
         })

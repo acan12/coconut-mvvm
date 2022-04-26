@@ -47,7 +47,7 @@ class LocationRepository @Inject constructor(
     suspend fun getLocationCaroutine() = safeApiCall { remoteData.getSourceByCallback() }
 
     // Database
-    fun getLocalLocation(application: Application): Flow<List<LocationEntity>> =
+    fun getLocalLocation(): Flow<List<LocationEntity>> =
         flow {
             emit(locationDao.getLocations())
         }.flowOn(IO)
