@@ -47,7 +47,7 @@ class ApiServiceManager : BaseManager(), IApiService {
         var httpClient = OkHttpClient.Builder()
 
         // allowUntrustedSSL: true , if activate Untrusted SSL
-        if (allowUntrustedSSL) httpClient = UnsafeHttpClientHelper.getUnsafeOkHttpClient(httpClient)
+        if (allowUntrustedSSL) httpClient = UnsafeHttpClientHelper.getUnsafeOkHttpClient()
         httpClient.connectTimeout(timeout, TimeUnit.SECONDS)
         httpClient.readTimeout(timeout, TimeUnit.SECONDS)
 

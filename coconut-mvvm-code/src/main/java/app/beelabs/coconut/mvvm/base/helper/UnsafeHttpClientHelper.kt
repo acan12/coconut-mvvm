@@ -10,7 +10,7 @@ import javax.security.cert.CertificateException
 
 class UnsafeHttpClientHelper {
     companion object {
-        fun getUnsafeOkHttpClient(httpClient: OkHttpClient.Builder): OkHttpClient.Builder {
+        fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
             try {
                 val trusAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
                     @Throws(CertificateException::class)

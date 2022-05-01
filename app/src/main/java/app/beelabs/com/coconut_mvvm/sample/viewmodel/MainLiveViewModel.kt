@@ -46,7 +46,7 @@ class MainLiveViewModel @Inject constructor(
     }
 
     suspend fun insertLocalLocation(local: LocationEntity, context: Context) {
-        repository.insertLocalLocation(local, context)
+        repository.insertLocalLocation(local)
     }
 
 }

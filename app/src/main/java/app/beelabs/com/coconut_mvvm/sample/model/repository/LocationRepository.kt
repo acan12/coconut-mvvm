@@ -57,7 +57,7 @@ class LocationRepository @Inject constructor(
         }.flowOn(IO)
 
 
-    suspend fun insertLocalLocation(location: LocationEntity, context: Context) {
+    suspend fun insertLocalLocation(location: LocationEntity) {
         locationDao.insertLocation(location)
     }
 }

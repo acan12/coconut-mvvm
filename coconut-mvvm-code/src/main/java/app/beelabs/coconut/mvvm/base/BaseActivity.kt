@@ -23,13 +23,4 @@ open class BaseActivity : AppCompatActivity(), IView,
     override fun handleNoConnectionInternet() {}
     override fun callbackReConnectingNetwork() {}
 
-
-    fun setupStatusBarStyle(statusBarColor: Int, lightOn: Boolean, activity: BaseActivity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (lightOn) {
-                activity.window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-            if (statusBarColor != 0) activity.window.statusBarColor = statusBarColor
-        }
-    }
 }

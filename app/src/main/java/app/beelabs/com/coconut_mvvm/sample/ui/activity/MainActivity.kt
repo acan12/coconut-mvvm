@@ -70,7 +70,7 @@ class MainActivity : BaseActivity(), IMainView {
 
     private fun setupObserver(){
         viewModelLive.localLocation.observe(this, { result ->
-            Log.d("", "")
+            TODO("No action")
         })
 
         viewModelLive.location.observe(this) { resource ->

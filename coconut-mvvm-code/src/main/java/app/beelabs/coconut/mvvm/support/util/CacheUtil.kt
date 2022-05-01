@@ -42,32 +42,30 @@ object CacheUtil {
 
     }
 
-    fun putPreferenceString(key: String, value: String, context: Context) {
+    fun putPreferenceString(key: String, value: String) {
         val editor: SharedPreferences.Editor = sharedPref.edit()
         editor.putString(key, value).commit()
     }
 
-    fun putPreferenceInteger(key: String?, value: Int, context: Context?) {
+    fun putPreferenceInteger(key: String?, value: Int) {
         val editor = sharedPref.edit()
         editor.putInt(key, value).commit()
     }
 
-    fun putPreferenceBoolean(key: String?, value: Boolean, context: Context?) {
+    fun putPreferenceBoolean(key: String?, value: Boolean) {
         val editor = sharedPref.edit()
         editor.putBoolean(key, value).commit()
     }
 
-    fun getPreferenceString(key: String?, context: Context?): String? {
-//        sharedPref = context.getSharedPreferences(context.getString(PREFERENCE_KEY), Context.MODE_PRIVATE);
+    fun getPreferenceString(key: String?): String? {
         return sharedPref.getString(key, "")
     }
 
-    fun getPreferenceInteger(key: String?, context: Context?): Int {
-//        sharedPref = context.getSharedPreferences(context.getString(PREFERENCE_KEY), Context.MODE_PRIVATE);
+    fun getPreferenceInteger(key: String?): Int {
         return sharedPref.getInt(key, 0)
     }
 
-    fun getPreferenceBoolean(key: String?, context: Context?): Boolean? {
+    fun getPreferenceBoolean(key: String?): Boolean? {
 //        sharedPref = context.getSharedPreferences(context.getString(PREFERENCE_KEY), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(key, false)
     }
