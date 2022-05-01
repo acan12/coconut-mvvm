@@ -12,5 +12,6 @@ interface IView {
     fun handleError(message: String?)
     fun handleError(response: ErrorResponse?)
 
-    fun handleRetryConnection()
+    fun handleNoConnectionInternet()
+    fun callbackReConnectingNetwork()
 }

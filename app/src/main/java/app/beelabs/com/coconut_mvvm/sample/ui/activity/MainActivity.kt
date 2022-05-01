@@ -21,8 +21,6 @@ import leakcanary.AppWatcher
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), IMainView {
 
-//    private val networkState = NetworkMonitorUtil(this)
-
     private lateinit var binding: ActivityMainBinding
 
     private val viewModelRx: MainViewModel by viewModels()
@@ -35,21 +33,13 @@ class MainActivity : BaseActivity(), IMainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        setupNetworkMonitoring(networkState)
-        // fetch data from - RX Observer
-//        viewModelRx.getSource(this)
-
-        // fetch data from - Coroutine livedata
-//        doCoroutine()
-
-        // fetch data from - local DB
-//        doLocalData()
+        setupObserver()
 
         binding.btnRx.setOnClickListener {
-            viewModelRx.getSource(this)
+            doRxData()
         }
         binding.btnCoroutine.setOnClickListener {
-            doCoroutine()
+            doCoroutineData()
         }
 
         AppWatcher.objectWatcher.watch(this, "View was detached")
@@ -60,18 +50,29 @@ class MainActivity : BaseActivity(), IMainView {
         viewModelRx.disposable?.dispose()
     }
 
-    fun doLocalData() {
-        viewModelLive.getLocalLocation()
-        viewModelLive.localLocation.observe(this, { result ->
-            Log.d("", "")
-        })
+    fun doRxData(){
+        // fetch data from - RX Observer
+        viewModelRx.getSource(this)
     }
 
-    fun doCoroutine() {
+    // fetch data from - local DB
+    fun doLocalData() {
+        viewModelLive.getLocalLocation()
+    }
+
+    // fetch data from - Coroutine livedata
+    fun doCoroutineData() {
         viewModelLive.getLocationLiveData(loadingProgress = {
             binding.loading.show()
             binding.demoTitle.text = "Loading..."
         })
+    }
+
+    private fun setupObserver(){
+        viewModelLive.localLocation.observe(this, { result ->
+            Log.d("", "")
+        })
+
         viewModelLive.location.observe(this) { resource ->
             when (resource) {
                 is Resource.Success -> {
@@ -91,10 +92,11 @@ class MainActivity : BaseActivity(), IMainView {
 
                     when (resource.throwable) {
                         is NetworkLostConnectionException -> {
-                            binding.demoTitle.text = resource.throwable.message
-                            dialogLostConnection?.dismiss()
-                            dialogLostConnection = CoconutAlertNoConnectionDialog(this)
-                            dialogLostConnection?.show()
+                            handleNoConnectionInternet()
+//                            binding.demoTitle.text = resource.throwable.message
+//                            dialogLostConnection?.dismiss()
+//                            dialogLostConnection = CoconutAlertNoConnectionDialog(this)
+//                            dialogLostConnection?.show()
                         }
                         else -> {
                             binding.demoTitle.text = resource.errorBody.toString()
@@ -112,6 +114,10 @@ class MainActivity : BaseActivity(), IMainView {
 
     override fun handleSourceResponseData(data: LocationResponse) {
         "Rx: \n${data.locationData[3].name}".also { binding.demoTitle.text = it }
-        Toast.makeText(this, "OnNext -> ${data.locationData[3].name}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Data -> ${data.locationData[3].name}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun handleNoConnectionInternet() {
+        Toast.makeText(this, "Lost connection now!!", Toast.LENGTH_LONG).show()
     }
 }

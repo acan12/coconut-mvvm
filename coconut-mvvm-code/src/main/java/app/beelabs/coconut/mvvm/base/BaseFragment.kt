@@ -11,6 +11,12 @@ open class BaseFragment : Fragment(), IView {
     override fun handleSuccess(response: BaseResponse?) {}
     override fun handleError(message: String?) {}
     override fun handleError(response: ErrorResponse?) {}
-    override fun handleRetryConnection() {}
+    override fun handleNoConnectionInternet() {
+        activity?.apply {
+            finish()
+            startActivity(intent)
+        }
+    }
 
+    override fun callbackReConnectingNetwork() {}
 }

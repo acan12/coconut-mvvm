@@ -4,6 +4,7 @@ package app.beelabs.com.coconut_mvvm.sample.model.repository
 import android.app.Application
 import android.content.Context
 import app.beelabs.coconut.mvvm.base.BaseRepository
+import app.beelabs.coconut.mvvm.base.Resource
 import app.beelabs.com.coconut_mvvm.sample.model.api.remote.SourceRemoteDataSource
 import app.beelabs.com.coconut_mvvm.sample.model.api.response.LocationResponse
 import app.beelabs.com.coconut_mvvm.sample.model.dao.LocationDao
@@ -44,7 +45,10 @@ class LocationRepository @Inject constructor(
 //            })
 //    }
 
-    suspend fun getLocationCaroutine() = safeApiCall { remoteData.getSourceByCallback() }
+    suspend fun getLocationCaroutine() =
+        flow<Resource<LocationResponse>> {
+            emit(safeApiCall { remoteData.getSourceByCallback() })
+        }.flowOn(IO)
 
     // Database
     fun getLocalLocation(): Flow<List<LocationEntity>> =

@@ -14,37 +14,15 @@ import io.reactivex.disposables.Disposable
 open class BaseActivity : AppCompatActivity(), IView,
     ComponentCallbacks2 {
 
-    protected var disposable: Disposable? = null
     override val currentActivity: BaseActivity
         get() = this
 
     override fun handleSuccess(response: BaseResponse?) {}
     override fun handleError(message: String?) {}
     override fun handleError(response: ErrorResponse?) {}
-    override fun handleRetryConnection() {}
+    override fun handleNoConnectionInternet() {}
+    override fun callbackReConnectingNetwork() {}
 
-//    fun setupNetworkMonitoring(networkMonitor: NetworkMonitorUtil) {
-//        networkMonitor.result = { isAvailable, type ->
-//            runOnUiThread {
-//                when (isAvailable) {
-//                    true -> {
-//                        when (type) {
-//                            NetworkMonitorUtil.ConnectionType.Wifi -> {
-//                                Log.i("NETWORK_MONITOR_STATUS", "Wifi Connection")
-//                            }
-//                            NetworkMonitorUtil.ConnectionType.Cellular -> {
-//                                Log.i("NETWORK_MONITOR_STATUS", "Cellular Connection")
-//                            }
-//                            else -> {}
-//                        }
-//                    }
-//                    false -> {
-//                        Log.i("NETWORK_MONITOR_STATUS", "No Connection")
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     fun setupStatusBarStyle(statusBarColor: Int, lightOn: Boolean, activity: BaseActivity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -1,6 +1,5 @@
 package app.beelabs.com.coconut_mvvm.sample.viewmodel
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,15 +9,16 @@ import app.beelabs.coconut.mvvm.base.Resource
 import app.beelabs.com.coconut_mvvm.sample.model.api.response.LocationResponse
 import app.beelabs.com.coconut_mvvm.sample.model.pojo.LocationEntity
 import app.beelabs.com.coconut_mvvm.sample.model.repository.LocationRepository
+import app.beelabs.com.coconut_mvvm.sample.domain.usecases.LocationUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainLiveViewModel @Inject constructor(
-    private val repository: LocationRepository
+    private val repository: LocationRepository,
+    private val locationUseCases: LocationUseCases
 ) : BaseViewModel() {
 
     private val _location: MutableLiveData<Resource<LocationResponse>> = MutableLiveData()
@@ -30,7 +30,10 @@ class MainLiveViewModel @Inject constructor(
     fun getLocationLiveData(loadingProgress: () -> Unit) =
         viewModelScope.launch {
             loadingProgress.invoke()
-            _location.value = repository.getLocationCaroutine()
+            locationUseCases.resultFlow.collect {
+                _location.value = it
+            }
+//            _location.value = repository.getLocationCaroutine()
         }
 
     fun getLocalLocation(){

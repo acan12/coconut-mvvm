@@ -75,7 +75,7 @@ public class RxObserver<P extends BaseResponse> implements Observer {
         if (e instanceof NetworkLostConnectionException) {
             if (dialogLostConnection != null)
                 dialogLostConnection.dismiss();
-            dialogLostConnection = new CoconutAlertNoConnectionDialog(iv.getCurrentActivity());
+            dialogLostConnection = new CoconutAlertNoConnectionDialog(iv);
             dialogLostConnection.show();
             return;
         }

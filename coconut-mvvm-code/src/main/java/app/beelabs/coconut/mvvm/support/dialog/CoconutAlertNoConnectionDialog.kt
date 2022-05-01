@@ -15,10 +15,7 @@ class CoconutAlertNoConnectionDialog(val iview: IView) :
         val btnReconnect = findViewById<Button>(R.id.coconut_btn_reconnect)
         btnReconnect.setOnClickListener {
             dismiss()
-            iview.currentActivity.apply {
-                finish()
-                startActivity(intent)
-            }
+            iview.callbackReConnectingNetwork()
         }
     }
 }

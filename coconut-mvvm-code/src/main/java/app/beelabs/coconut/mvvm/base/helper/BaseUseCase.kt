@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 
-abstract class FlowUseCase<T> {
+abstract class BaseUseCase<T> {
 
     /**
      * Trigger for the action which can be done in this request
@@ -18,7 +18,7 @@ abstract class FlowUseCase<T> {
         performAction()
     }
 
-    protected abstract fun performAction(): Flow<T>
+    protected abstract suspend fun performAction(): Flow<T>
 
     /**
      * Triggers the execution of this use case
