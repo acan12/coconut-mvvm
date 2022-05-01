@@ -13,7 +13,6 @@ public class RxObserver<P extends BaseResponse> implements Observer {
     private String messageLoading;
     private long timeMilis;
     private int dialogType = DialogTypeEnum.DEFAULT;
-    private static BaseDialog dialogLostConnection;
     private Disposable disposable = null;
 
     public interface DialogTypeEnum {
