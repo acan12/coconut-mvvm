@@ -93,10 +93,6 @@ class MainActivity : BaseActivity(), IMainView {
                     when (resource.throwable) {
                         is NetworkLostConnectionException -> {
                             handleNoConnectionInternet()
-//                            binding.demoTitle.text = resource.throwable.message
-//                            dialogLostConnection?.dismiss()
-//                            dialogLostConnection = CoconutAlertNoConnectionDialog(this)
-//                            dialogLostConnection?.show()
                         }
                         else -> {
                             binding.demoTitle.text = resource.errorBody.toString()

@@ -1,22 +1,26 @@
 # coconut-mvvm
 Coconut framework in MVVM version for Android development
 
-Release Notes:
-- add lost connection handler in base
-
-
-
 [![](https://jitpack.io/v/acan12/coconut.svg)](https://jitpack.io/#acan12/coconut)
 
+Change Log Version:
+- `[1.0.0-alpha4]` :
+  * support already with MVVM android architecture
+  * support sharePreference security provided by androidX
+  * Convertor Json to String and String to Json
+  * support with dagger hilt dependency injection
+  * handle page for not have internet connection case
+  * support Caroutine and Rx for async process
+  
 **Recomended Directory structure**
- - `Project directory`
+- `Project directory`
 
 
      > font directory path: `src/main/res/font/...`
 
      ```aidl
 
-     < YOUR_NAMESPACE_APPLICATION >
+     << yourNamespaceApplication >>
         |
         |-- App.java
         |-- IConfig.java
@@ -35,13 +39,13 @@ Release Notes:
         |       |    |-- ApiService.java
         |       |
         |       |--- pojo
-        |       |--- dao
+        |       |--- dao (model database)
         |       |--- repository
         |
         |
         |--- viewmodel
         |      |
-        |      |-- {name}ViewModel.java
+        |      |-- << name >>ViewModel.java
         |
         |--- ui
              |
@@ -70,9 +74,9 @@ Release Notes:
 
 **2. Add the dependency**
 ```
-dependencies {
+    dependencies {
 		// Coconut MVVM
-        implementation 'com.github.acan12:coconut-mvvm:1.0.0-alpha4'
+        implementation "com.github.acan12:coconut-mvvm:$coconut_mvvm_version"
 		// HILT
         implementation "com.google.dagger:hilt-android:$hilt_version"
         kapt "com.google.dagger:hilt-compiler:$hilt_version"
@@ -81,189 +85,119 @@ dependencies {
 ```
 
 **3. Add Application project class extend BaseApp**
-```java
-    public class App extends BaseApp {
-        private static Context context;
-
-        @Override
-        public void onCreate() {
-            super.onCreate();
-            context = getApplicationContext();
-            setupBuilder(DaggerAppComponent.builder(), this);
-        }
-
-        public static AppComponent getAppComponent() {
-            if(context == null) return null;
-            return getComponent();
-        }
-
-        ...
-    }
+```kotlin
+    @HiltAndroidApp
+    class App : BaseApp() {
 ```
 
 **4. Add Application class into `AndroidManifest.java`**
 ```java
    ...
    <application
-           android:name=".<AppClassName>"
-           android:allowBackup="true"
-           android:icon="@mipmap/ic_launcher"
-           android:label="@string/app_name"
-           android:supportsRtl="true"
-           android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:name=".<< yourApplication >>"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.sample" >
   ...
 
 ```
 
 **5. Integrate Base Code with Coconut Framework**
- - `BaseApi`
+- `Api`
 
-    ```java
-        public class Api extends BaseApi {
+   ```kotlin
+       open class Api 
+       @Inject 
+       constructor(val apiService: IApiService) : BaseApi() 
 
-            synchronized private static ApiService initApiDomain() {
-                getInstance().setApiDomain(IConfig.API_BASE_URL);
-                return (ApiService) getInstance().setupApi(App.getAppComponent(), ApiService.class);
-                //return setupApi(App.getAppComponent(), ApiService.class, true); -- if set allow untrusted SSL calling
-            }
+   ```
+- `Activity`
+   ```kotlin
+       @AndroidEntryPoint
+       class MainActivity : BaseActivity(), IView
+   ```
+- `Fragment`
+   ```kotlin
+       class DemoFragment : BaseFragment() 
+      
+   ```
 
-            synchronized public static void doApiSources(Callback callback) {
-                initApiDomain().callApiSources("en").enqueue((Callback<SourceResponse>) callback);
-            }
+- `ViewModel`
+    ```kotlin
+        @HiltViewModel
+        class MainViewModel @Inject constructor(
+            private val repository: SampleLocationRepository,
+            private val locationUseCases: SampleLocationUseCases
+        ) : BaseViewModel() {
+       
+    ```
+
+- `UseCase`
+  ```kotlin
+       class SampleLocationUseCases @Inject constructor(
+            private val locationRepository: SampleLocationRepository
+        ) : BaseUseCase<Resource<SampleLocationResponse>>() {
+        
+        override suspend fun performAction()
+            : Flow<Resource<SampleLocationResponse>> {
+            return locationRepository.getLocationCaroutine() 
+        }
+    ```
+
+- `Dialog`
+    ```kotlin
+       class SampleDialog(val iview: IView) :
+            BaseDialog(iview as Activity, R.style.CoconutDialogFullScreen)
+
 
     ```
- - `BaseActivity`
-    ```java
-       // ... interface ICustomView extends IView
 
-       public class MainActivity extends BaseActivity implements ICustomView {
-           ...
+- `DAO (Data Access Object) for database`
+   ```kotlin
+       @Dao
+       interface LocationDao {
+       
+           @Query("SELECT * FROM location ORDER BY id DESC")
+           fun getLocations(): List<LocationEntity>
+       
+           @Insert(onConflict = OnConflictStrategy.REPLACE)
+           suspend fun insertLocation(location: LocationEntity)
        }
-    ```
- - `BaseFragment` ,_if use fragment_
-    ```java
-       // ... interface ICustomView extends IView
+   ```
 
-       public class MainFragment extends BaseFragment implements ICustomView {
-           ...
-       }
-    ```
+- `Response`
+   ```kotlin
+       @JsonIgnoreProperties(ignoreUnknown = true)
+       class SampleLocationResponse() : BaseResponse() {}
+   ```
 
-- `BaseUseCase`
-  ```java
-       // ... bridge among repository and viewmodel
+**5. No Internet Connection in App**
 
-       public class CustomViewModel implements ViewModel{
-           ...
-       }
-    ```
-
-- `BaseDialog`
-    ```java
-       public class MainDialog extends BaseDialog {
-          ...
-
-          @Override
-          protected void onCreate(Bundle savedInstanceState) {
-              ...
-          }
-       }
-
-
-    ```
-
- - `BaseDao / Interactor`
-    ```java
-        public class ResourceDao extends BaseDao {
-            public ResourceDao(BaseActivity ac) {
-                super(ac);
-            }
-
-            public void getSourcesDAO(BaseActivity ac, Callback callback) {
-                Api.doApiSources(ac, callback);
-            }
-            ...
-
-            private Database db;
-
-            public void saveUser(BaseActivity ac){
-                db = Database.initDatabase(context); -- setup database configuration
-                db.saveToRealm()
-            }
-    ```
-
- - `BaseResponse`
-    ```java
-       public class ArticleResponse extends BaseResponse {
-           ...
-       }
-    ```
-
-
-**6. Implementation loading message within Rx**
-
-- `(Activity / Fragment)`
-```aidl
-    -> ((ResourcePresenter) BasePresenter.getInstance(this, ResourcePresenter.class)).getSourceRX("Ambil Data");
-```
-
-- `(Interface UI class)`
-```aidl
-    -> create self interface extends IView as parent of interface in framework
-```
-
-- `(Presenter)`
-```aidl
-    -> @Override
-        public void getSourceRX(String messageLoading) {
-            new ResourceDao(this).getSourceRXDAO()
-                    .subscribe(new RxObserver<ProfileResponseModel>(iv, messageLoading) {
-                        @Override
-                        public void onNext(Object o) {
-                            super.onNext(o);
-                            [Interface UI class].handle[your function name]((SourceResponse) o);
+        [Activity]
+        class MainActivity : BaseActivity(), IView {
+            
+            viewModelLive.location.observe(this) { resource ->
+                when(resource) {
+                    is Resource.Error -> {
+                        when (resource.throwable) {
+                            is NetworkLostConnectionException -> {
+                                handleNoConnectionInternet()
+                            }
                         }
-                    });
-        }
-```
-
-- `(Interface DAO/ Interactor)`
-```aidl
-    -> create self interface extends IDao as parent of interface in framework
-
-    [sample code] ->
-
-        private [custom presenter name]Presenter.OnPresenterResponseCallback onPresenterResponseCallback;
-        private IResourceDao rdao;
-
-        // definition usecase
-        public interface I[custom presenter name]Dao extends IDaoPresenter {
-
+                    }
+                    ...
+                }
+                ...
+            }
             ...
-            void getSourceRX(String messageLoading);
-
+            
+            override fun handleNoConnectionInternet() {
+                Toast.makeText(this, "No Connection", Toast.LENGTH_LONG).show()
+            }
             ...
-
-
         }
-
-        public [custom presenter name]Dao(I[custom presenter name] rdao) {
-            this.rdao = rdao;
-        }
-
-        public [custom presenter name]Dao(I[custom presenter name]Dao rdao, ResourcePresenter.OnPresenterResponseCallback onPresenterResponseCallback) {
-            this.rdao = rdao;
-            this.onPresenterResponseCallback = onPresenterResponseCallback;
-        }
-        ...
-
-```
-
-Change Log Version:
-- `[1.0.0-alpha4]` :
-    * support sharePreference security provided by androidX
-    * Convertor Json to String and String to Json
-    * support with dagger hilt dependency injection
-    * handle page for not have internet connection case
-    * support MVVM android architecture with UseCase
-    * support Caroutine and Rx for async process
+        
+    ```
