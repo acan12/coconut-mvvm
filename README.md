@@ -1,7 +1,7 @@
 # coconut-mvvm
 Coconut framework in MVVM version for Android development
 
-[![](https://jitpack.io/v/acan12/coconut.svg)](https://jitpack.io/#acan12/coconut)
+[![](https://jitpack.io/v/acan12/coconut-mvvm.svg)](https://jitpack.io/#acan12/coconut-mvvm)
 
 Change Log Version:
 - `[1.0.0-alpha4]` :
