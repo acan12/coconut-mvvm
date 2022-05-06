@@ -3,7 +3,7 @@ Coconut framework in MVVM version for Android development
 
 [![](https://jitpack.io/v/acan12/coconut-mvvm.svg)](https://jitpack.io/#acan12/coconut-mvvm)
 
-Change Log Version:
+Release Note :
 - `[1.0.0-alpha4]` :
   * support already with MVVM android architecture
   * support sharePreference security provided by androidX
