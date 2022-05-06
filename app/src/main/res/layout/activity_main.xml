@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Demo MVVM"
         android:textAlignment="center"
+        android:fontFamily="@font/sf_pro_display_black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
